@@ -65,8 +65,8 @@ int main() {
     }
     int num_of_edge = pairs.size()/2;
     int expect_edge = 0;
-    for (int i = 1; i <= n; i++) {
-        if (find(i) == i) {
+    for (int i = 1; i < MAX_PEOPLE; i++) {
+        if (find(i) == i) { // father of the set
             int size_of_this = people[i].size;
             expect_edge += (size_of_this-1)*size_of_this/2;
         }
