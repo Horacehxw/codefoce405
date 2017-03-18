@@ -34,6 +34,9 @@ int find(int x) {
 void connect(int a, int b) {
     int f1 = find(a);
     int f2 = find(b);
+    if (f1 == f2) {
+        return;
+    }
     if (people[f1].size > people[f2].size) {
         people[f1].size += people[f2].size;
         people[f2].father = f1;
@@ -56,15 +59,13 @@ int main() {
         scanf("%d %d", &a, &b);
         if (a != b) {
             pairs.insert(*(new pair<int, int>(a, b)));
+            pairs.insert(*(new pair<int, int>(b, a)));
+            connect(a, b);
         }
-        if (find(a) == find(b)) {
-            continue;
-        }
-        connect(a, b);
     }
-    int num_of_edge = pairs.size();
+    int num_of_edge = pairs.size()/2;
     int expect_edge = 0;
-    for (int i = 0; i<n; i++) {
+    for (int i = 1; i <= n; i++) {
         if (find(i) == i) {
             int size_of_this = people[i].size;
             expect_edge += (size_of_this-1)*size_of_this/2;
